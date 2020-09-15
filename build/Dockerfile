@@ -9,6 +9,7 @@ LABEL com.github.actions.name="GitHub Action to execute javascript build tools"
 LABEL com.github.actions.description="Executes npm install, followed by gulp or grunt (whichever has a build file)."
 LABEL com.github.actions.icon="truck"
 LABEL com.github.actions.color="purple"
+ENV DISABLE_NOTIFIER=true
 RUN apk --no-cache add libpng-dev build-base file nasm autoconf libjpeg-turbo-utils automake
 COPY LICENSE README.md THIRD_PARTY_NOTICE.md /
 
