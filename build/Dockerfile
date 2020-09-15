@@ -9,7 +9,7 @@ LABEL com.github.actions.name="GitHub Action to execute javascript build tools"
 LABEL com.github.actions.description="Executes npm install, followed by gulp or grunt (whichever has a build file)."
 LABEL com.github.actions.icon="truck"
 LABEL com.github.actions.color="purple"
-RUN apk --no-cache add g++ make libpng-dev autoconf
+RUN apk --no-cache add g++ make libpng-dev autoconf libjpeg-turbo-utils
 COPY LICENSE README.md THIRD_PARTY_NOTICE.md /
 
 COPY "entrypoint.sh" "/entrypoint.sh"
