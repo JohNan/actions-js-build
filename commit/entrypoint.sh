@@ -1,9 +1,9 @@
 #!/bin/sh
-## This GitHub Action for git commits any changed files and pushes 
+## This GitHub Action for git commits any changed files and pushes
 ## those changes back to the origin repository.
 ##
 ## Required environment variable:
-## - $GITHUB_TOKEN: The token to use for authentication with GitHub 
+## - $GITHUB_TOKEN: The token to use for authentication with GitHub
 ## to commit and push changes back to the origin repository.
 ##
 ## Optional environment variables:
@@ -38,11 +38,19 @@ git_setup ( ) {
 # This section only runs if there have been file changes
 echo "Checking for uncommitted changes in the git working tree."
 if expr $(git status --porcelain | wc -l) \> 0
-then 
+then
   git_setup
   git add .
-  git commit -m "$COMMIT_MESSAGE"
-  git push
-else 
+  if [ "${AMEND-}" = true ]; then
+    git commit --amend --no-edit
+  else
+    git commit -m "$COMMIT_MESSAGE"
+  fi
+  if [ "${FORCE-}" = true ]; then
+    git push --force-with-lease
+  else
+    git push
+  fi
+else
   echo "Working tree clean. Nothing to commit."
 fi

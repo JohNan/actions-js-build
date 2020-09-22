@@ -4,7 +4,7 @@ author: 'elstudio'
 branding:
   icon: 'git-commit'
   color: 'green'
-inputs: 
+inputs:
   wdPath:
     description: 'Working directory path'
     required: false
@@ -13,14 +13,24 @@ inputs:
     description: 'Print script debugging info'
     required: false
     default: 'false'
-  commitMessage: 
+  commitMessage:
     description: 'Message to log for this commit'
     required: false
     default: 'Regenerate build artifacts.'
+  amend:
+    description: '--amend the previous commit, instead of adding a new one'
+    required: false
+    default: false
+  force:
+    description: 'do a force push (only useful with `amend`'
+    required: false
+    default: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
     DEBUG: ${{ inputs.debug }}
     WD_PATH: ${{ inputs.wdPath }}
-    COMMIT_MESSAGE: ${{ inputs.commitMessage }} 
+    COMMIT_MESSAGE: ${{ inputs.commitMessage }}
+    AMEND: ${{ inputs.amend }}
+    FORCE: ${{ inputs.force }}
